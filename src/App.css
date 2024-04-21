@@ -8,7 +8,7 @@
   padding: 20px; 
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); 
   display: inline-block; 
-  
+  max-width: 300px;
 }
 
 .calculator {
@@ -23,14 +23,14 @@
 }
 
 input {
-  max-width: 500px;
+  width: calc(100% - 20px);
   padding: 10px;
   margin-bottom: 10px;
   font-size: 18px;
   text-align: right;
   border: 1px solid #ccc;
   border-radius: 5px;
-  display: block; /* Set input elements to block display */
+  color: #ffffff;
 }
 
 .buttons {
