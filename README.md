@@ -1,7 +1,5 @@
 # Simple React Calculator
 
-![Calculator Demo](demo.gif)
-
 This is a simple calculator built using React, designed to demonstrate basic arithmetic operations and state management in React applications. It's a perfect starting point for anyone looking to get familiar with React or wanting to build a similar project.
 
 ## Features
