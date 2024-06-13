@@ -23,4 +23,4 @@ To run this project locally or explore further:
 
 1. Clone this repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/istentoumis/basic-calculator.git
