@@ -2,7 +2,7 @@
 
 This is a simple calculator built using React, designed to demonstrate basic arithmetic operations and state management in React applications. It's a perfect starting point for anyone looking to get familiar with React or wanting to build a similar project.
 
-![Preview](https://raw.githubusercontent.com/username/project/master/image-path/image.png](https://github.com/istentoumis/basic-calculator/blob/main/src/calcu-screenshot.png)
+![Preview](https://github.com/istentoumis/basic-calculator/blob/main/src/calcu-screenshot.png)
 
 ## Features
 
