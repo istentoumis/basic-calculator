@@ -13,18 +13,20 @@ function App() {
         break;
       case 'C':
         setDisplay('0');
-        setResult('');
+        setResult('0');
         break;
-      case '.':
+      case '%':
         setDisplay((prev) => {
-          // Prevent multiple decimal points in a number
-          const lastNumber = prev.split(/[\/*\-+]/).pop();
-          if (lastNumber.includes('.')) {
-            return prev;
-          }
-          return prev + '.';
-        });
-        break;        
+        const match = prev.match(/(\d+(\.\d+)?)([+\-*/])(\d+(\.\d+)?)?$/);
+        if (match) {
+          const number = parseFloat(match[1]);
+          const operator = match[3];
+          const percentageValue = number * parseFloat(match[4] || '0') / 100;
+          return prev.replace(/(\d+(\.\d+)?)([+\-*/])(\d+(\.\d+)?)?$/, `${number}${operator}${percentageValue}`);
+        }
+        return prev;
+      });
+        break;     
       case '/':
         setDisplay((prev) => prev + '/');
         break;
@@ -37,26 +39,29 @@ function App() {
       case '+':
         setDisplay((prev) => prev + '+');
         break;
+      case '.':
+        setDisplay((prev) => {
+          // Prevent multiple decimal points in a number
+          const lastNumber = prev.split(/[\/*\-+]/).pop();
+          if (lastNumber.includes('.')) {
+            return prev;
+          }
+          return prev + '.';
+        });
+        break;  
       case '=':
         try {
-          setResult(eval(display).toString());
+          // Replace leading zeros in each number
+          const cleanedDisplay = display.replace(/\b0+(\d+)/g, '$1');
+          setResult(eval(cleanedDisplay).toString());
           setDisplay('0');
         } catch {
           setResult('Error');
         }
         break;
-        case '00':
-          setDisplay((prev) => {
-            // Allow "00" only if it follows a non-zero number or is at the start
-            if (prev === '0') {
-              return prev; 
-            } else if (prev === '') {
-              return '00'; 
-            } else {
-              return prev + '00';
-            }
-          });
-          break;
+      case 'del':
+        setDisplay((prev) => prev.length > 1 ? prev.slice(0, -1) : '0');
+        break;
       default: 
         setDisplay((prev) => prev === '0' ? value : prev + value);
     }
@@ -72,7 +77,7 @@ function App() {
         <div className="buttons">
           <button onClick ={ () => handleClick("CE")}>CE</button>
           <button onClick ={ () => handleClick("C")}>C</button>
-          <button onClick ={ () => handleClick(".")}>.</button>
+          <button onClick ={ () => handleClick("%")}>%</button>
           <button onClick ={ () => handleClick("/")}>/</button>
           <button onClick ={ () => handleClick("7")}>7</button>
           <button onClick ={ () => handleClick("8")}>8</button>
@@ -86,9 +91,10 @@ function App() {
           <button onClick ={ () => handleClick("2")}>2</button>
           <button onClick ={ () => handleClick("3")}>3</button>
           <button onClick ={ () => handleClick("+")}>+</button>
-          <button onClick ={ () => handleClick("00")}>00</button>  
+          <button onClick ={ () => handleClick("del")}>del</button>
           <button onClick ={ () => handleClick("0")}>0</button>
-          <button className="button-equal" onClick ={ () => handleClick("=")}>=</button>
+          <button onClick ={ () => handleClick(".")}>.</button>
+          <button onClick ={ () => handleClick("=")}>=</button>
         </div>
       </div>
     </div>
